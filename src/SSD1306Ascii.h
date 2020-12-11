@@ -21,6 +21,9 @@
  * @file SSD1306Ascii.h
  * @brief Base class for ssd1306 displays.
  */
+
+
+
 #ifndef SSD1306Ascii_h
 #define SSD1306Ascii_h
 #include "Arduino.h"
@@ -39,7 +42,7 @@
  *
  * If INCLUDE_SCROLLING is nonzero, the scroll feature will included.
  */
-#define INCLUDE_SCROLLING 1
+#define INCLUDE_SCROLLING 0
 
 /** Initial scroll mode, SCROLL_MODE_OFF,
     SCROLL_MODE_AUTO, or SCROLL_MODE_APP. */
@@ -320,7 +323,7 @@ class SSD1306Ascii : public Print {
   /**
    * @return letter-spacing in pixels with magnification factor.
    */
-  uint8_t letterSpacing() const {return m_magFactor*m_letterSpacing;}
+  uint8_t letterSpacing() const {return m_letterSpacing;}
   /**
    * @return The character magnification factor.
    */

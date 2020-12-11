@@ -246,7 +246,7 @@ static const uint8_t MEM_TYPE SH1106_128x64init[] = {
   SSD1306_NORMALDISPLAY,                 // normal / reverse
   SSD1306_SETMULTIPLEX, 0x3F,            // ratio 64
   SH1106_SET_PUMP_MODE, SH1106_PUMP_ON,  // set charge pump enable
-  SH1106_SET_PUMP_VOLTAGE | 0X2,         // 8.0 volts
+  SH1106_SET_PUMP_VOLTAGE | 0X3,         // 8.0 volts
   SSD1306_COMSCANDEC,                    // Com scan direction
   SSD1306_SETDISPLAYOFFSET, 0X00,        // set display offset
   SSD1306_SETDISPLAYCLOCKDIV, 0X80,      // set osc division
