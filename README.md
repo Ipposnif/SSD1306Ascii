@@ -1,3 +1,17 @@
+The SSD1306Ascii is a very good library, well structured and occupies little space.
+I learnt a lot about characters rendering from it, so big thanks to the author.
+This fork is to fit the library to my ongoing personal project, but the changes could be useful to other people that need to show multiple screens of properties.
+
+1. The reverse mask, for double size characters, has been replaced with a normal mask char with a line at the bottom. Used for screen titles.
+2. \[ char produces a 1 pixel separator
+3. ] char produces a 4 pixels separator
+4. ^ char feeds the line with empty separators
+5. some replaced chars, for the battery icon, don't want a separator
+6. double size chars don't have automatically a double size separator
+7. the SH1106 (1.3 inches) screen seems to like 9V pump
+
+##################################################################
+
 Note: Version 1.2.x has several new examples and many changes/new features.
 
 SSD1306Ascii is an unbuffered character only library for small OLED
