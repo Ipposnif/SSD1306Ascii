@@ -186,7 +186,7 @@ void SSD1306Ascii::ssd1306WriteRamBuf(uint8_t c) {
   if (m_skip) {
     m_skip--;
   } else if (m_col < m_displayWidth) {
-    writeDisplay(c^m_invertMask, SSD1306_MODE_RAM_BUF);
+    writeDisplay(c, SSD1306_MODE_RAM_BUF);
     m_col++;
   }
 }
@@ -359,31 +359,37 @@ size_t SSD1306Ascii::write(uint8_t ch) {
   for (uint8_t r = 0; r < nr; r++) {
 	for (uint8_t m = 0; m < m_magFactor; m++) {
 
-	  skipColumns(skip);
-	  if (r || m) {
-		setCursor(scol, m_row + 1);
-	  }
-	  if (ch0!=91 && ch0!=93 && ch0!=94) {
-		  for (uint8_t c = 0; c < w; c++) {
-			uint8_t b = readFontByte(base + c + r*w);
-			if (thieleShift && (r + 1) == nr) {
-			  b >>= thieleShift;
-			}
-			if (m_magFactor == 2) {
-			   b = m ?  b >> 4 : b & 0XF;
-			   b = readFontByte(scaledNibble + b);
-			   if (m==1 && m_invertMask==0XFF) {b=b|128;}
-			   ssd1306WriteRamBuf(b);
-			}
-			ssd1306WriteRamBuf(b);
-		  }
-	  }
-		if (!(ch0==34 || ch0==59 || ch0==95 || ch0==96)) // battery back doesn't want spacing
-		{
-		  for (uint8_t i = 0; i < s + (ch0==93 ? 3 : (ch0==94 ? (127-scol) : 0)); i++) {
-			ssd1306WriteRamBuf(m==1 && m_invertMask==0XFF ? 128 : 0);
-		  }			
+	skipColumns(skip);
+	if (r || m) {
+	setCursor(scol, m_row + 1);
+	}
+	if (ch0!=91 && ch0!=93 && ch0!=94) {
+	  for (uint8_t c = 0; c < w; c++) {
+		uint8_t b = readFontByte(base + c + r*w);
+		if (thieleShift && (r + 1) == nr) {
+		  b >>= thieleShift;
 		}
+		if (m_magFactor == 2) {
+		   b = m ?  b >> 4 : b & 0XF;
+		   b = readFontByte(scaledNibble + b);
+		   if (m==1 && m_invertMask==0XFF) 
+		   {
+			   //m_invertMask=0x00;
+			   //setInvertMode(0);
+			   b=b|64;
+		   }
+		   ssd1306WriteRamBuf(b);
+		}
+		ssd1306WriteRamBuf(b);
+	  }
+	}
+	if (!(ch0==34 || ch0==59 || ch0==95 || ch0==96)) // battery back doesn't want spacing
+	{
+		for (uint8_t i = 0; i < s + (ch0==93 ? 3 : (ch0==94 ? (127-scol) : 0)); i++)
+		{
+		ssd1306WriteRamBuf(m==1 && m_invertMask==0XFF ? 64 : 0);
+		}			
+	}
 		
 
 
